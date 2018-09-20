@@ -1,7 +1,6 @@
 package com.linkedlist;
 
-
-public class CircularLinkedList<E> {
+public class CircularLinkedList<E> implements Cloneable {
   //---------------- nested Node class ----------------
   /**
    * Singly linked node, which stores a reference to its element and
@@ -152,6 +151,31 @@ public class CircularLinkedList<E> {
     return sb.toString();
   }
   
+  
+  //Method to create a clone of circular linked list
+  @SuppressWarnings("unchecked")
+  public CircularLinkedList<E> clone() throws CloneNotSupportedException{	  
+	
+	CircularLinkedList<E> other = (CircularLinkedList<E>) super.clone(); //Safe cast
+	  if (size > 0) {
+	      other.tail = new Node<>(tail.getElement(), null);
+	      Node<E> walk = tail.getNext();      // walk through remainder of original list
+	      Node<E> otherTail = other.tail;     // remember most recently created node
+	      while (walk != tail) {            //walk until tail element is reached, since it is a circular list
+	        Node<E> newest = new Node<>(walk.getElement(), null);
+	        otherTail.setNext(newest);     // link previous node to this one
+	        otherTail = newest;
+	        walk = walk.getNext();
+	      }
+	      
+	      if(walk == tail) { //If tail node has reached, link last added node to tail node
+	    	  otherTail.setNext(other.tail);
+	    	  otherTail = other.tail; //Not necessarily needed(At this point, tail, otherTail and walk point to same node)
+	      }
+	    }
+	  return other;
+  }
+  
 //main method
   public static void main(String[] args)
   {
@@ -163,12 +187,18 @@ public class CircularLinkedList<E> {
 	  circularList.addLast("ATL");
 	  circularList.addLast("BOS");
 	  //
-	  System.out.println(circularList);
+	  System.out.println("Original List: " + circularList);
 	  circularList.removeFirst();
-	  System.out.println(circularList);
+	  System.out.println("Originl List after removing first node: " + circularList);
 	  circularList.rotate();
-	  System.out.println(circularList);
+	  System.out.println("List after rotation: " +circularList);
+	  
+	  try {
+		  CircularLinkedList<String> cloneList = circularList.clone();
+		  System.out.println("Cloned List:" + cloneList);
+	  }catch(CloneNotSupportedException ce) {
+		  System.out.println("Exception thrown:" + ce);
+	  }
 
-	  //
   }
 }
