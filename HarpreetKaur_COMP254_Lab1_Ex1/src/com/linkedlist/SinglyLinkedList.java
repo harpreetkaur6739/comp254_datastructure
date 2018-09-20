@@ -195,7 +195,7 @@ public class SinglyLinkedList<E> implements Cloneable {
  
   
   //main method
-  public static void main(String[] args)
+  public static void main(String[] args) throws Exception
   {
 	  
 	  SinglyLinkedList<String> list = new SinglyLinkedList<String>();
@@ -207,11 +207,15 @@ public class SinglyLinkedList<E> implements Cloneable {
 	  list.addLast("E");
 	  list.addLast("F");
 	  list.addLast("G");
+	  list.addLast("H");
+	  list.addLast("I");
 	  System.out.println(list);
 	  
+	  SinglyLinkedList<String> list2 =  list.clone();
+	  System.out.println(list2);
 	  //swap nodes
-	  list.swapNodes(4,1);
-	  System.out.println(list);
+	 // list.swapNodes("I","G");
+	 // System.out.println(list);
 	  
 	  //
   }
@@ -220,41 +224,80 @@ public class SinglyLinkedList<E> implements Cloneable {
 	  
   }
   
-  public void swapNodes(int pos1, int pos2) {
-	  Node<E> pos1Node = null;
-	  Node<E> prev1Node = null;
+  public void swapNodes(String node1Val, String node2Val) {
 	  
-	  Node<E> pos2Node = null;
-	  Node<E> prev2Node = null;
+	  /*Cases to be handled
+	  1. Both node1Val and node2Val can be same
+	  2. Either node or node 2 may not be present
+	  2. Either node1Val or node2Val can be of a head node
+	  3. Either node1Val or node2Val can be of tail node
+	  4. node1Val and node2Val may not be adjacent	  
+	  */
 	  
-	  int position1 = 1;
-	  int position2 = 1;
 	  
-	  pos1Node = head;
-	  prev1Node = head;
-	  pos2Node = head;
-	  prev2Node = head;
+	  //CASE1: node1 and node2 val is same
+	  if(node1Val.equals(node2Val)) {
+		  //do nothing
+		  System.out.println("ERROR: Both values are same!");
+		  return;
+	  }
+	  Node<E> prevNode1 = null;
+	  Node<E> currNode1 = head;
 	  
-	  while(position1 < pos1) {
-		  prev1Node = pos1Node;
-		  pos1Node = pos1Node.getNext();
-		  position1++;
+	  Node<E> prevNode2 = null;
+	  Node<E> currNode2 = head;
+	
+	  //Traverse and track nodes and their previous nodes
+	  
+	  //Traverse the list to find node1Val
+	  while(currNode1 != null && !currNode1.getElement().equals(node1Val)) {
+		  prevNode1 = currNode1;
+		  currNode1 = currNode1.getNext();
 	  }
 	  
-	  while(position2 < pos2) {
-		  prev2Node = pos2Node;
-		  pos2Node = pos2Node.getNext();
-		  position2++;
+	  //Traverse the list to find node2Val	  
+	  while(currNode2 != null && !currNode2.getElement().equals(node2Val) ) {
+		  prevNode2 = currNode2;
+		  currNode2 = currNode2.getNext();
 	  }
 	  
 	  
-	  //do swapping
-	  prev1Node.setNext(pos2Node);
-	  pos1Node.setNext(pos2Node.getNext());
-	  prev2Node.setNext(pos1Node);
-	  pos2Node.setNext(prev2Node);
+	  //CASE2: Check if either node 1 or node 2 is not present
+	  if(currNode1 == null || currNode2 == null) {
+		  System.out.println("ERROR: One of the value is not present in the list!");
+		  return;
+	  }
 	  
 	  
+	  //CASE3: either node 1 and node2 can be head node
+	  if(prevNode1 == null) {//The node1Val is at the head of the list
+		  head = currNode2; //Make node2 as head of list
+	  }else { //node1Val is not at the head of the list
+		  prevNode1.setNext(currNode2); //Link Next pointer of prevNode1 to node2
+	  }
+	  
+	  if(prevNode2 == null) {//The node2Val is at the head of the list
+		  head = currNode1; //Make node1 as head of list
+	  }else { //node2Val is not at the head of the list
+		  prevNode2.setNext(currNode1); //Link Next pointer of prevNode2 to node1
+	  }
+	  
+	
+	  //CASE4: Either node 1 and node 2 can be tail node
+
+	  if(currNode2.getNext() == null) { //Node2 is last element
+		//  currNode1.setNext(null);
+		  tail = currNode1;
+	  }else if(currNode1.getNext() == null) { //Node1 is last element	
+		  //currNode2.setNext(null);
+		  tail = currNode2;
+	  }	  
+	
+	  
+	  //Case 5: Everything good, Do swapping
+	  Node<E> temp = currNode1.getNext(); //Create temporary node to save node1's next node		 
+	  currNode1.setNext(currNode2.getNext());  
+	  currNode2.setNext(temp);
 	  
   }
   
