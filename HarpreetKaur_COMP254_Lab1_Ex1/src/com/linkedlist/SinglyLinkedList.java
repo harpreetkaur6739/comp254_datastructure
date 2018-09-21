@@ -1,5 +1,7 @@
 package com.linkedlist;
 
+import java.util.Scanner;
+
 public class SinglyLinkedList<E> implements Cloneable {
   //---------------- nested Node class ----------------
   /**
@@ -209,19 +211,26 @@ public class SinglyLinkedList<E> implements Cloneable {
 	  list.addLast("G");
 	  list.addLast("H");
 	  list.addLast("I");
-	  System.out.println(list);
+	  System.out.println("Original List: " + list);
 	  
-	  SinglyLinkedList<String> list2 =  list.clone();
-	  System.out.println(list2);
-	  //swap nodes
-	 // list.swapNodes("I","G");
-	 // System.out.println(list);
+	  //SinglyLinkedList<String> list2 =  list.clone();
+	  //System.out.println(list2);
+	 
 	  
-	  //
-  }
-  
-  public void traverse() {
+	  //SWAP NODES
+	  Scanner in = new Scanner(System.in); 
+	  System.out.println("Enter first element to be swapped:");
 	  
+	   // Reading data using readLine 
+	   String swapNode1 = in.nextLine(); 
+	   
+	   System.out.println("Enter second element to be swapped:");
+	  
+	   String swapNode2 = in.nextLine();  
+	
+	  list.swapNodes(swapNode1,swapNode2);
+	  
+	  System.out.println("After Swapping "+ swapNode1 + " with " + swapNode2 + ": " + list);
   }
   
   public void swapNodes(String node1Val, String node2Val) {
@@ -294,10 +303,11 @@ public class SinglyLinkedList<E> implements Cloneable {
 	  }	  
 	
 	  
-	  //Case 5: Everything good, Do swapping
+	  //CASE 5: Everything good, Do swapping
 	  Node<E> temp = currNode1.getNext(); //Create temporary node to save node1's next node		 
 	  currNode1.setNext(currNode2.getNext());  
 	  currNode2.setNext(temp);
+	  
 	  
   }
   
