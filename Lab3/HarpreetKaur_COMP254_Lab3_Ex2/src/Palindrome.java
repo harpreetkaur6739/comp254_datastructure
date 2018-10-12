@@ -8,9 +8,9 @@ public class Palindrome {
 		String string = scanner.nextLine();
 		
 		if(isPalindrome(string)) {
-			System.out.println("String " + string + " is a Palindrome.");
+			System.out.println("String '" + string + "\' is a Palindrome.");
 		}else {
-			System.out.println("String " + string + " is NOT a Palindrome.");
+			System.out.println("String '" + string + "\' is NOT a Palindrome.");
 		}
 		
 		scanner.close();
