@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<classpath>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
+	<classpathentry kind="src" path="src"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER"/>
+	<classpathentry kind="lib" path="C:/ptplot5.10"/>
+	<classpathentry kind="lib" path="C:/ptplot5.10/ptolemy/plot/plot.jar"/>
+	<classpathentry kind="lib" path="C:/ptplot5.10/ptolemy/plot/plotapplet.jar"/>
+	<classpathentry kind="lib" path="C:/ptplot5.10/ptolemy/plot/plotapplication.jar"/>
+	<classpathentry kind="lib" path="C:/ptplot5.10/ptolemy/plot/plotmlapplet.jar"/>
+	<classpathentry kind="lib" path="C:/ptplot5.10/ptolemy/plot/pxgraphapplet.jar"/>
+	<classpathentry kind="output" path="bin"/>
+</classpath>
